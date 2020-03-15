@@ -1,0 +1,49 @@
+{% extends 'myapp/base.html' %}
+{% block title %}myappだよ{% endblock  %}
+{% block content %}
+<h1><span style="text-shadow: 2px 2px #FF0000;">コロナ</span>に負けるな！<br>プログラミングを頑張りながら YouTuber も頑張る人を応援しよう！</h1>
+<p>2019年12月以降にプログラミング関係のチャンネルを開設した方（ユーザーさん）を YouTube API でリストアップ。</p>
+<p>リストデータは毎日更新され、新しい順にソートしています。（最大取得数 50）</p>
+<p>よければ お気に入り登録（Subscribers）ボタンを押して、頑張っている人を応援しましょう！</p>
+<p>「お気に入り登録」ボタンを押して失うものは....特にないと思います。 私もそうですが新規 YouTuber は広告表示できる 「お気に入り登録者 1000」 までの道のりが長いです。お気に入り登録はワンクリックでできると思いますので、ご賛同頂ける方はどうぞお願いいたします。</p>
+
+<hr>
+<div style="background-color:rgba(27, 127, 204, 0.14);padding:16px">
+  <h4>【このページを作った人】</h4>
+  <ul>
+  <li><p>オシママサラ</p></li>
+  <li><div class="g-ytsubscribe" data-channelid="UC1cW8mk_cvTtZdssY5s87jg"></div></li>
+  <li><p>テクニカル Web ライター & 町のWeb屋さん（準備中）</p></li>
+  </ul>
+</div>
+<hr>
+
+<p>読み込み動画数： <span style="font-size:2em;font-weight:bold">{{readed_video_number}}</span></p>
+
+{% for data in data_list %}
+<button class="accordion">
+<div class="title-container">
+  <div class="target">
+  <h3>{{data.1}}　<div class="g-ytsubscribe" data-channelid="{{data.0}}"></div></h3>
+  </div>
+</div>
+<p>{{data.3}}</p>
+</button>
+<div class="panel">
+  <div class="youtube-video-place-{{data.6}}" data-yt-url="https://www.youtube.com/embed/{{data.4}}?rel=0&showinfo=0&autoplay=1">
+  <img src="{{data.5}}" async class="play-youtube-video-{{data.6}} youtube-img">
+  </div>
+</div>
+<script>
+// YouTube iframe
+var video_wrapper{{data.6}} = $('.youtube-video-place-{{data.6}}');
+if(video_wrapper{{data.6}}.length){
+$('.play-youtube-video-{{data.6}}').on('click', function(){
+video_wrapper{{data.6}}.html('<iframe width="560" height="315" allowfullscreen frameborder="0" class="embed-responsive-item" src="' + video_wrapper{{data.6}}.data('yt-url') + '"></iframe>');
+});
+}
+</script>
+<hr>
+{% endfor %}
+
+{% endblock %}
